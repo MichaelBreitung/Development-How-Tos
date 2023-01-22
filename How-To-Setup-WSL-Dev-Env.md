@@ -56,26 +56,26 @@ This part focusses on the installation of WSL 2 with the Ubuntu distribution fro
 
    1) Switch to interactive mode, which lets you act as root user:
 
-   ````
-   sudo -i
-   ````
+      ````
+      sudo -i
+      ````
 
    2. Add the following two lines to */etc/wsl.conf*:
 
-   ````
-   [network]
-   generateResolvConf = false
-   ````
+      ````
+      [network]
+      generateResolvConf = false
+      ````
 
    3. Restart WSL:
 
-   ````
-   # in windows cmd or Powershell
-   wsl --shutdown
-   
-   # use wsl --status to get the correct name of your Ubuntu. Then:
-   wsl -d <Ubuntu distro>
-   ````
+      ````
+      # in windows cmd or Powershell
+      wsl --shutdown
+      
+      # use wsl --status to get the correct name of your Ubuntu. Then:
+      wsl -d <Ubuntu distro>
+      ````
 
    4. Get the DNS configuration of the System. 
 
@@ -83,17 +83,16 @@ This part focusses on the installation of WSL 2 with the Ubuntu distribution fro
       # in cmd or Powershell under Windows
       ipconfig /all
       ````
-
       You'll find two lines under the entry *DNS Servers*, if custom servers have been set up.
 
    5. Open Ubuntu again by clicking on App Icon.
 
    6. Inside Ubuntu, create a file *resolv.conf* and add the following two lines:
 
-   ````
-   nameserver <first DNS Servers IP>
-   nameserver <second DNS Servers IP>
-   ````
+      ````
+      nameserver <first DNS Servers IP>
+      nameserver <second DNS Servers IP>
+      ````
 
    7. Restart WSL.
 
@@ -135,13 +134,12 @@ This part focusses on the installation of WSL 2 with the Ubuntu distribution fro
    ````
 
 10. Start xrdp:
+      ````
+      /etc/init.d/xrdp start
 
-   ````
-   /etc/init.d/xrdp start
-   
-   # check if it's running
-   /etc/init.d/xrdp status
-   ````
+      # check if it's running
+      /etc/init.d/xrdp status
+      ````
 
 11. Add this command to */etc/rc.local* so xrdp starts automatically, once you start Ubuntu:
 
