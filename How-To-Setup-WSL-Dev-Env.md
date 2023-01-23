@@ -187,11 +187,7 @@ By unsetting the *DBUS_SESSION_BUS_ADDRESS* and *XDG_RUNTIME_DIR* environment va
 
 ### Installation
 
-1. Inside Ubuntu, install Docker:
-
-   ````
-   sudo apt install docker.io
-   ````
+1. Inside Ubuntu, install Docker, by following [this guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 
 2. Add yourself to the *docker* group to be able to perform docker commands without *sudo*:
 
