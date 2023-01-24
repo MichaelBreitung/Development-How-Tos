@@ -198,7 +198,9 @@ By unsetting the *DBUS_SESSION_BUS_ADDRESS* and *XDG_RUNTIME_DIR* environment va
    # logout and in of user, to have group changes become effective
    su - < user name >
    ````
-
+3. Setup a secure credentials store, which will be used when you login to [Docker Hub](https://hub.docker.com/):
+   - Simple setup using *DBus Secret Service* -> https://luiscachog.io/docker-login-the-right-way/
+   - More complex setup using *pass* -> https://brain2life.hashnode.dev/how-to-set-up-secure-local-credential-storage-for-docker-on-ubuntu-2004
 
 ## Visual Studio Code
 
