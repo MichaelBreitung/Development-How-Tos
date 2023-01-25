@@ -87,7 +87,7 @@ This part focusses on the installation of WSL 2 with the Ubuntu distribution fro
 
    5. Open Ubuntu again by clicking on App Icon.
 
-   6. Inside Ubuntu, create a file *resolv.conf* and add the following two lines:
+   6. Inside Ubuntu, create a file */etc/resolv.conf* and add the following two lines:
 
       ````
       nameserver <first DNS Servers IP>
