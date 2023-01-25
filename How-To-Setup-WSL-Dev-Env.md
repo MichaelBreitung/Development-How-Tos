@@ -232,6 +232,7 @@ The intention of installing the Ubuntu Distribution via WSL was to use it for de
 
    - Python - for proper VS Code Python integration
    - Mypy - for Python type checking
+   - Docker - helps managing docker files, images and containers
 
 Now you are fully setup for Python development under either Linux, Windows or both. You also have access to Docker from inside VS Code command line.
 
