@@ -35,3 +35,40 @@
 **Note**: If you specify a container by ID, it's sufficient to use the first few characters and numbers of that ID. 
 
 **Note**: Docker will give containers automatically generated names. If you want to specify a custom name, use the *--name* option when calling *docker container run*.
+
+## Use Cases
+
+### Node App
+
+Consider you want to run a Node applicatoin inside a docker container. To remain flexible during the development of the application while using docker to run the app, you will likely want to use *Volumes* to mount your local app code into the docker container.
+
+The *node_modules* that are required to run the app in the container, should only be installed in the container though and not in your local file system.
+
+For this to work under Linux, you must ensure that the permissions inside the container are setup properly as explained in [this article](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker) under step 3.
+
+A Dockerfile might look like this:
+
+    FROM node:16-alpine
+    
+    # act as node user, which should be available on node alpine containers
+    USER node
+   
+    # create the app folder inside the node users space
+    RUN mkdir -p /home/node/app
+    
+    # set the workdir to the newly created folder
+    WORKDIR /home/node/app
+     
+    # get the package.json file and install node modules inside workdir
+    # user and group for those files will be node as per chown option
+    COPY --chown=node:node ./package.json ./
+    RUN npm install
+    
+    # if you use Volumes, you can skip the following line
+    COPY --chown=node:node ./ ./
+     
+    CMD ["npm", "start"]
+    
+To run the container using volumes, use the following command:
+
+    docker container run -p < port forwarding for app > -v /home/node/app/node_modules -v $(pwd):/home/node/app < name | ID >
