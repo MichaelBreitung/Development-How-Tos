@@ -72,3 +72,16 @@ A Dockerfile might look like this:
 To run the container using volumes, use the following command:
 
     docker container run -p < port forwarding for app > -v /home/node/app/node_modules -v $(pwd):/home/node/app < name | ID >
+    
+As an alternative, you can use *Docker Compose*:
+
+    version: '3'
+
+    services:
+      node-app:
+        build: .
+        ports: 
+          - < port forwarding for app >
+        volumes:
+          - /home/node/app/node_modules
+          - .:/home/node/app
