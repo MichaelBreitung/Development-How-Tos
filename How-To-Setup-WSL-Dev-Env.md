@@ -107,8 +107,13 @@ This part focusses on the installation of WSL 2 with the Ubuntu distribution fro
    # install additional packages - those will allow you to get a graphical user experience via Remote Desktop
    apt install ubuntu-desktop xfce4 dbus-x11 xrdp net-tools -y
    
-   # install python packages
+   # install python packages, if required
    apt install python3 python3-pip
+   
+   # install node.js, if required -> find installation command for latest version 
+   # here: https://github.com/nodesource/distributions
+   curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &&\
+   apt install -y nodejs
    
    # remove packages that are not required - sometimes additional packages get installed during apt install
    apt autoremove -y
