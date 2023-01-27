@@ -245,3 +245,15 @@ Now you are fully setup for Python development under either Linux, Windows or bo
 
 - https://code.visualstudio.com/docs/remote/wsl
 - https://code.visualstudio.com/docs/remote/wsl-tutorial
+
+## SSH
+
+Ubuntu already comes with git, ssh and ssh-agent. This makes it easy to put your code under version control. To make this work using ssh, you must add a few lines to the end of *~/.bashrc* to ensure that ssh-agent is automatically started.
+
+````
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+   eval `ssh-agent -s`
+   ssh-add
+fi
+````
+When you then start Visual Studio Code, ssh-agent will be running in the connected *bash*. This then allows you to [connect to Github via SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
