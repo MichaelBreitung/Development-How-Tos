@@ -117,3 +117,10 @@ As an example, the following command will convert the architecture.adoc file to 
 asciidoctor-pdf architecture.adoc
 ````
 
+## Linting
+
+If you're writing documentation, you can use linting to ensure proper spelling and grammar. [LanguageTool](https://github.com/languagetool-org/languagetool) is a good, open-source choice for that.
+
+For Visual Studio, you can install the [LanguageTool Extension](https://github.com/davidlday/vscode-languagetool-linter). Read the instructions in the Readme, to configure it properly. Out of the box, it will support Markdown already. To also support Asciidoc, head to the extension's settings and add "asciidoc" to the *Language Tool Linter > Plain Text: Language Ids* setting.
+
+
