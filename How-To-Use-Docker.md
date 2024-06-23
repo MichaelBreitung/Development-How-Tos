@@ -6,14 +6,15 @@
 
 - **docker image pull < name:tag >** - Pull an image with a certain tag from the docker registry.
 - **docker image build -t < name:tag > .** - Call this command inside a folder containing a *Dockerfile* to create an image. The final . tells the command to look in the current folder for the *Dockerfile*. You can also specify a specific path there and call this command from another directory.
+- **docker image build -t < name:tag > -f < custom Dockerfile > .** - Same as above, but using a custom dockerfile.
 - **docker image ls** - list all installed images. Shorthand is **docker images**.
 - **docker image rm < name | ID >** - Remove specific image. Shorthand is **docker rmi**.
 - **docker image rm $(docker images -q)** - Remove all images.
 
 ### docker container
 
-- **docker container run -d < name | ID >** - Create and start a container of specified name or ID and detach from it. You stay inside your current session and keep control over the input.
-- **docker container run -it < name | ID > bash** - Create and start a container of specified name or ID and run bash inside of it in interactive mode. This allows you to directly interact with the bash. Shorthand is **docker run -i < name | ID > bash**
+- **docker container run -d < image tag | ID >** - Create and start a container of specified name or ID and detach from it. You stay inside your current session and keep control over the input.
+- **docker container run -it < image tag | ID > bash** - Create and start a container and run bash inside of it in interactive mode. This allows you to directly interact with the bash. Shorthand is **docker run -i < name | ID > bash**
 - **docker container run --network < network name > < name | ID >** - Create and start a container and attach it to a specific network.
 - **docker container exec -it < name | ID > bash** - Run bash inside an already started container of specified name or ID in interactive mode. 
 - **docker container ls -a** - list all running containers and show current status. Shorthand is **docker ps -a**. With this command you also see containers that have been stopped and their names.
@@ -38,6 +39,28 @@
 
 ## Use Cases
 
+### Create and Publish Image to DockerHub
+
+Consider you created a custom Dockerfile and want to now create an image from it and publish it. First, create a public repository in your Docker Hub account. The name you use for the repository is the name you later use when tagging the image.
+
+````
+# 1) Login to Docker Hub
+docker login
+
+# 2) build the image - include your docker user in the tag, followed by a slash, followed by the repository name you've setup in Docker Hub
+docker image build -t < name:tag > -f < Dockerfile name > .
+
+# 3) Upload to docker registry as "latest"
+docker push < tagname of image >:latest
+
+# 4) Create versioning - example version 1.0.0
+docker tag < tagname of image >:latest < tagname of image >:1.0.0
+
+# 5) Versioned Upload to docker registry
+docker push < tagname of image >:< version >
+
+````
+
 ### Node App
 
 Consider you want to run a Node applicatoin inside a docker container. To remain flexible during the development of the application while using docker to run the app, you will likely want to use *Volumes* to mount your local app code into the docker container.
@@ -52,7 +75,7 @@ A Dockerfile might look like this:
     
     # act as node user, which should be available on node alpine containers
     USER node
-   
+       
     # create the app folder inside the node users space
     RUN mkdir -p /home/node/app
     
@@ -68,15 +91,15 @@ A Dockerfile might look like this:
     COPY --chown=node:node ./ ./
      
     CMD ["npm", "start"]
-    
+
 To run the container using volumes, use the following command:
 
     docker container run -p < port forwarding for app > -v /home/node/app/node_modules -v $(pwd):/home/node/app < name | ID >
-    
+
 As an alternative, you can use *Docker Compose*:
 
     version: '3'
-
+    
     services:
       node-app:
         build: .
